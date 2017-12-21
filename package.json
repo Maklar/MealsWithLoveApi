@@ -1,0 +1,27 @@
+{
+  "name": "meals-with-love-api",
+  "version": "1.0.0",
+  "description": "Meals with Love Api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maklar/MealsWithLoveApi.git"
+  },
+  "author": "Jonathan Moffitt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maklar/MealsWithLoveApi/issues"
+  },
+  "homepage": "https://github.com/Maklar/MealsWithLoveApi#readme",
+  "devDependencies": {
+    "nodemon": "^1.14.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7"
+  }
+}
