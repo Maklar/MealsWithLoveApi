@@ -33,6 +33,10 @@ var userSchema = new schema({
     created: {
         type: Date,
         default: Date.now()
+    },
+    oauth_id: {
+        type: String,
+        required: "Please provide an oauth id"
     }
 });
 

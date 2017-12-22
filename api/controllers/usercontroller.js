@@ -25,6 +25,13 @@ exports.get_user_details = function(req, res) {
     });
 };
 
+exports.get_user_details_by_oauth = function(req, res) {
+    user.findOne({ "oauth_id": req.params.oauthId }, function(err, user) {
+        if(err) res.send(err);
+        res.json(user);
+    });
+}
+
 exports.update_user = function(req, res) {
     user.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true}, function(err,user) {
         if (err) res.send(err);

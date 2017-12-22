@@ -10,4 +10,7 @@ module.exports = function(app) {
         .get(users.get_user_details)
         .put(users.update_user)
         .delete(users.delete_user);
+
+    app.route("/user/oauth/:oauthId")
+        .get(users.get_user_details_by_oauth);
 };
