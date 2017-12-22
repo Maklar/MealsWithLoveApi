@@ -23,6 +23,8 @@ app.use(cors());
 var routes = require('./api/routes/userroutes');
 routes(app);
 
+var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
+httpServer.listen(port+1);
 httpsServer.listen(port);
