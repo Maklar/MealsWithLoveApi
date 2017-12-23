@@ -1,17 +1,27 @@
-const fs = require("fs");
-var http = require('http');
-var https = require('https');
-var privateKey  = fs.readFileSync('api.key', 'utf8');
-var certificate = fs.readFileSync('api.crt', 'utf8');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 const cors = require("cors");
 
-var credentials = {key: privateKey, cert: certificate};
 var express = require("express"),
     app = express(),
     port = process.env.PORT || 3001,
     mongoose = require('mongoose'),
     user = require('./api/models/usermodel'),
     bodyParser = require('body-parser');
+
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: "https://faithcountrychapel.auth0.com/.well-known/jwks.json"
+    }),
+    audience: process.env.AUTH0_AUDIENCE,
+    issuer: "https://faithcountrychapel.auth0.com/",
+    algorithms: ['RS256']
+});
+
+app.use(jwtCheck);
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/mealswithlovedb');
@@ -23,8 +33,4 @@ app.use(cors());
 var routes = require('./api/routes/userroutes');
 routes(app);
 
-var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
-
-httpServer.listen(port+1);
-httpsServer.listen(port);
+app.listen(port);
