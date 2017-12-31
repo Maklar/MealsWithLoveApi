@@ -7,6 +7,7 @@ var express = require("express"),
     port = process.env.PORT || 3001,
     mongoose = require('mongoose'),
     user = require('./api/models/usermodel'),
+    request = require('./api/models/requestmodel'),
     bodyParser = require('body-parser');
 
 var jwtCheck = jwt({
@@ -30,7 +31,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
 
-var routes = require('./api/routes/userroutes');
-routes(app);
+var userRoutes = require('./api/routes/userroutes');
+userRoutes(app);
+
+var requestRoutes = require('./api/routes/requestroutes');
+requestRoutes(app);
 
 app.listen(port);
