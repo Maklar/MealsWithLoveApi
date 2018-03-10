@@ -10,4 +10,7 @@ module.exports = function(app) {
         .get(requests.get_request_details)
         .put(requests.update_request)
         .delete(requests.delete_request);
+    
+    app.route("/request/volunteer")
+        .post(requests.volunteer)
 };

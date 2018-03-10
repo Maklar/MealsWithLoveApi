@@ -38,3 +38,21 @@ exports.delete_request = function(req, res) {
         res.json({ message: 'Request successfully deleted' });
     });
 };
+
+exports.volunteer = function(req, res) {
+    const requestId = req.body.requestId.toString();
+    const mealIndex = parseInt(req.body.mealIndex.toString());
+    const volunteerId = req.body.volunteerId.toString();
+    request.findById(requestId, function(err, req) {
+        if (err) res.send(err);
+        var jsonRequest = req.toJSON();
+        var meal = jsonRequest.meals[mealIndex];
+        meal = Object.assign(meal, { "volunteer": volunteerId });
+        jsonRequest.meals[mealIndex] = meal
+        request.findByIdAndUpdate(requestId, jsonRequest, {new: true}, function(err,request) {        
+            if (err) res.send(err);
+            res.json(request);
+
+        });
+    });
+}
